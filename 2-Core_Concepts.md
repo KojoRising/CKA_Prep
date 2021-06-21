@@ -90,3 +90,4 @@ ETCDCTL - CLI Tool used to interact w/ ETCD
 
 ## C) Kube-API Server | In-Depth
 
+Stopped at - https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/learn/lecture/14298426#overview

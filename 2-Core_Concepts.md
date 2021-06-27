@@ -90,4 +90,130 @@ ETCDCTL - CLI Tool used to interact w/ ETCD
 
 ## C) Kube-API Server | In-Depth
 
-Stopped at - https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/learn/lecture/14298426#overview
+### Background
+
+Kubectl - Actually reaches kube-apiserver. API Server then authenticates, gets data from *etcd* & responds back.
+
+#### API Server | Main Steps
+1) Authenticate User
+2) Validate Request
+3) Retrieve data
+4) Update ETCD
+5) Kube-Scheduler
+6) Kubelet (In a worker Node)
+
+
+#### 2 Ways to Setup
+
+1) Use KubeAdm
+
+2) "wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver"
+
+![](assets/Kube-ApiServer.png)
+
+
+#### Where is api-server deployed (via kube-adm)?
+
+![](assets/kubeadm-pod.png)
+
+#### Viewing API-Server Options:
+
+1) kubeAdm - *cat /etc/kubernetes/manifests/kube-apiserver.yaml*
+
+2) Non-kubeadm - *cat /etc/systemd/system/kube-apiserver.service*
+
+3) Running process - *ps -aux | grep kube-apiserver*
+
+
+## D) Kube-Controller Manager | In-Depth
+
+### Node Controller 
+
+- Checks Nodes via - API Server
+    - **Node Monitor Period** - 5 Seconds
+- Unreachable Nodes - Nodes that don't respond w/ a heartbeat. \
+  - Marked unreachable after Node Monitor Grace Period (below).
+  - **Node Monitor Grace Period** - 40 Seconds
+- **POD Eviction Timeout** - 5min
+    - If Node doesn't come back, the pods will be...
+        1) Evicted from that Node
+        2) Provisioned on a different, healthy Node
+    
+![](assets/2-controller_manager.png)
+
+
+### Installing Kube_controller_manager
+
+Note - The Node-Controller manager options mentioned above are shown below:
+    - node-monitor-period
+    - node-monitor-grace-period
+    - pod-eviction-timeout
+
+Also - ***--controllers*** holds the list of controllers available for you to use (you can add/remove as desired).
+
+![](assets/2-kube_controller_manager.png)
+
+
+#### Viewing kube-controller-manager Options:
+
+1) kubeAdm - *cat /etc/kubernetes/manifests/kube-controller-manager.yaml*
+
+2) Non-kubeadm - *cat /etc/systemd/system/kube-controller-manager.service*
+
+3) Running process - *ps -aux | grep kube-controller-manager*
+
+
+## E) Kube-Scheduler | In-Depth
+
+**kube-scheduler** - Decides which pod goes on which Node \
+    - ***kubelet*** actually places the pod on a particular node
+
+### 2 Phases
+
+#### E1) Filter Nodes
+Filters Nodes that don't fit resource requirements (CPU, Memory, etc.)
+
+#### E2) Rank Nodes
+Ranks Nodes - From 1-10
+- For example, calculates how many resources would be remaining on a node after scheduling the pod on it
+
+
+### View kube-scheduler options | kubeadm
+
+    - cat /etc/kubernetes/manifests/kube-scheduler.yaml
+
+## E) Kubelet | In-Depth
+
+### Kubelet | On Master Node
+
+1) Sole point of contact on Master Node
+
+2) Schedules Pods on a Node as requested by Kube-Scheduler
+
+3) Send regular status updates back to API Server
+
+### Kubelet | On Worker Node
+
+1) Registers Node w/ the Cluster
+
+2) When Kubelet receives instructions to schedule a Pod on the Node
+    - Requests Container Runtime (ie. Docker, containerd) to pull down image
+
+## F) Kube-Proxy | In-Depth
+
+0) ***Recall*** - Within a K8s cluster, every pod can reach every other pod
+    - Accommplished by using a POD networking solution
+
+
+####Services - Used for sending data to Pods (since Pod IP's change too much due to IP Churn)
+
+0) ***Does Not*** - Join a Pod Network
+    - Is a virtual K8s Construct that only lives in K8s memory
+    - But how is it accessible from any node across the cluster
+   
+ 
+1) ***Kube-Proxy*** - Everytime New serrvice is created
+    - Creates rules on each node to forward traffic from services to Backend Pods
+
+    
+![](assets/2_kube_proxy_routing.png)

@@ -34,12 +34,14 @@
 2) Kube-Proxy - Allows communication between worker nodes
     - Has rules that ensure worker nodes' containers can communicate with each other
     
+3) Container Runtime - Allows for container-related tasks (pulling/pushing images, etc.)
+    
 
 ## B) Etcd | In-Depth
 
 ### Definitions
 
-Etcd - Is a distributed reliable key-value store that is simple, fast, & secure. 
+Etcd - Distributed reliable key-value store that is simple, fast, & secure. 
 
 K-V Store - As opposed to Tabular/Relational Databases,
 - No Duplicates
@@ -212,7 +214,7 @@ Ranks Nodes - From 1-10
     - But how is it accessible from any node across the cluster
    
  
-1) ***Kube-Proxy*** - Everytime New serrvice is created
+1) ***Kube-Proxy*** - Everytime a New service is created
     - Creates rules on each node to forward traffic from services to Backend Pods
 
     

@@ -85,6 +85,33 @@ When a Node:
 Uses NodeAffinity + Default Scheduler (from v.1.12 onwards)
 
 
+## Static Pods
+
+**Recall** - Kubelet relies on kube-apiserver for details on which pod to run. 
+
+Kubelet - Will periodically check ***"/etc/kubernetes/manifests"*** for pod yamls
+
+These Pods Will be Restarted ***When...***
+- Application Crashes
+- User modifies the Pod YAMLS
+
+***NOTE*** - Only Pod manifests can be placed here (Not Deployments, RS's, etc.)
+
+***NOTE*** - The API Server is aware of static Pods \
+- If the Kubelet is part of the  cluster
+  - A Read-Only copy of the static Pod will be created on the Control Plane \
+      - This Read-Only copy will have the node-name appended to it (ie. "static-web-node01")
+![](assets/static_pod_example.png)
+        
+***Why Static Pods?*** - *To Deploy **Control Plane** components onto Worker Nodes themselves*
+![](assets/3_static_pod_control_plane.png)
+
+###Static Pods Vs. DaemonSets
+![](assets/3_static_pods_vs_daemonsets.png)
+
+![img_1.png](assets/3_static_pod_directory.png)
 
 
+### KubeAdm Approach
+![img_1.png](assets/3_static_pod_kube_adm_approach.png)
 

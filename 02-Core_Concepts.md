@@ -68,7 +68,7 @@ K-V Store - As opposed to Tabular/Relational Databases,
 Kubeadm - Will deploy etcd as a ***pod*** in *kube-system* namespace (called "etcd-master")
 - To List all keys stored by K8s, run the following:
   
-        kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
+        kubectl exec etcd-master -n kube-system etcdctl get --prefix -keys-only
 
 
 ### How K8s stores KV data in etcd
@@ -82,7 +82,7 @@ Ensuring multiple etcd instances are aware of each other:
 
     ExecStart=/usr/local/bin/etcd \\ \
     ... \
-    --initial-cluster controller-0=https://${CONTROLLER0_IP}:2380,controller-1=https://${CONTROLLER1_IP}:2380 \\
+    --initial-cluster controller-0=https://${CONTROLLER0_IP}:2379,controller-1=https://${CONTROLLER1_IP}:2380 \\
     ... \
 
 ---

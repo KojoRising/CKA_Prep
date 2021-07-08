@@ -1,12 +1,11 @@
 # Introduction
 
-There are 4 primary ways you can schedule a Pod on a Node. They are the following
+There are 3 primary ways you can schedule a Pod on a Node. They are the following
 1) Manual/Static Scheduling
     - Name
     - Labels
 2) Taints & Tolerations
-3) NodeSelectors
-4) Node Affinity
+3) Node Affinity
 
 ---
 ## Manual Scheduling 
@@ -57,7 +56,7 @@ Master-Taint - Note that the Master Node has a *NoSchedule* Taint to prevent Pod
 
 ### Operators
 1) ***In*** - Select a Node where its value is one of the following in 
-   "pod.spec.affinity.nodeAffinity.rDSIDE.nodeSelectorTerms.matchExpressions.values"
+   "pod.spec.affinity.nodeAffinity.RdsIde.nodeSelectorTerms.matchExpressions.values"
 2) ***Exists*** - Selects a Node 
 
 
@@ -115,3 +114,21 @@ These Pods Will be Restarted ***When...***
 ### KubeAdm Approach
 ![img_1.png](assets/3_static_pod_kube_adm_approach.png)
 
+## Multiple Schedulers
+
+**Why Multiple Schedulers?** 
+- Say you want a custom scheduler for a specific application, 
+  - So you run your own scheduler alongside the default scheduler
+    
+**New Scheduler Requirements**:
+1) For Both: ***--scheduler-name=my-scheduler***
+2) If...
+    - single master-node setup: ***--leader-elect=false***
+    - If multi master-node setup: ***--lock-object-name=[CUSTOM-SCHEDULER]***
+3) Configuring Target Pod: Use ***pod.spec.schedulerName*** to specify the custom scheduler's name
+
+***--leader-elect*** // Only 1 can be "true" at a time
+- If multiple copies of the same scheduler are running on different master-nodes (In a HA cluster)
+    - Only 1 scheduler can be active at a time.
+    
+![img_1.png](assets/3_multiple_schedulers.png)

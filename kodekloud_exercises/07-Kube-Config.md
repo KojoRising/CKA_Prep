@@ -1,0 +1,166 @@
+## Questions
+
+### 1) Where is the default kubeconfig file located in the current environment?
+
+Find the current home directory by looking at the HOME environment variable.
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# ls -al /root/.kube
+    total 20
+    drwxr-xr-x 3 root root 4096 Jul 26 21:39 .
+    drwx------ 1 root root 4096 Jul 26 21:39 ..
+    drwxr-x--- 4 root root 4096 Jul 26 21:39 cache
+    -rw------- 1 root root 5568 Jul 26 21:32 config
+</details>
+
+
+### 2) How many clusters are defined in the default kubeconfig file?
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# cat /root/.kube/config | grep --regexp="- cluster"
+    - cluster:
+</details>
+
+### 3) How many Users are defined in the default kubeconfig file?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# cat /root/.kube/config | grep --regexp="- name: "
+    - name: kubernetes-admin
+</details>
+
+### 4) How many contexts are defined in the default kubeconfig file?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# cat /root/.kube/config | grep --regexp="- context"
+    - context:
+</details>
+
+### 5) What is the user configured in the current context?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    From #3 - "kubernetes-admin"
+</details>
+
+### 6) What is the name of the cluster configured in the default kubeconfig file?
+<details>
+  <summary markdown="span">Answer</summary>
+
+        root@controlplane:~# k config view --minify | grep cluster
+        clusters:
+        - cluster:
+            cluster: kubernetes
+</details>
+
+### 7) A new kubeconfig file named my-kube-config is created. It is placed in the /root directory. How many clusters are defined in that kubeconfig file?
+<details>  
+    <summary markdown="span">Answer</summary>
+    
+    Answer - 4 clusters
+    
+    root@controlplane:~# cat my-kube-config | grep --regexp="cluster"
+    clusters:
+    cluster:
+    cluster:
+    cluster:
+    - name: test-cluster-1
+      cluster:
+      cluster: development
+      cluster: kubernetes-on-aws
+      cluster: production
+      cluster: test-cluster-1
+</details>
+
+### 8) How many contexts are configured in the my-kube-config file?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# cat my-kube-config | grep -E "  *"context:
+        context:
+        context:
+        context:
+        context:
+    root@controlplane:~# cat my-kube-config | grep -Ec "  *"context:
+    4
+</details>
+
+### 9) What user is configured in the research context?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    User: dev-user
+
+    - name: research
+      context:
+        cluster: test-cluster-1
+        user: dev-user
+
+</details>
+
+### 10) What is the name of the client-certificate file configured for the aws-user?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    - name: aws-user
+      user:
+          client-certificate: /etc/kubernetes/pki/users/aws-user/aws-user.crt
+          client-key: /etc/kubernetes/pki/users/aws-user/aws-user.key
+
+</details>
+
+### 11) What is the current context set to in the my-kube-config file?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# cat my-kube-config | grep current-context
+    current-context: test-user@development
+
+</details>
+
+### 12) I would like to use the dev-user to access test-cluster-1. Set the current context to the right one so I can do that.
+Once the right context is identified, use the kubectl config use-context command.
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+
+root@controlplane:~#  kubectl config --kubeconfig=/root/my-kube-config use-context research
+    Switched to context "research".
+</details>
+
+### 13) We don't want to have to specify the kubeconfig file option on each command. Make the my-kube-config file the default kubeconfig.
+<details>
+  <summary markdown="span">Answer</summary>
+
+</details>
+
+### 14) With the current-context set to research, we are trying to access the cluster. However something seems to be wrong. Identify and fix the issue.
+Try running the kubectl get pods command and look for the error. All users certificates are stored at /etc/kubernetes/pki/users.
+
+<details>
+  <summary markdown="span">Answer</summary>
+        
+    root@controlplane:~# k get pods
+    error: unable to read client-cert /etc/kubernetes/pki/users/dev-user/developer-user.crt for dev-user due to open /etc/kubernetes/pki/users/dev-user/developer-user.crt: no such file or directory
+
+    root@controlplane:~# ls -al /etc/kubernetes/pki/users/dev-user
+    total 20
+    drwxr-xr-x 2 root root 4096 Jul 26 21:39 .
+    drwxr-xr-x 5 root root 4096 Jul 26 21:39 ..
+    -rw-r--r-- 1 root root 1025 Jul 26 21:56 dev-user.crt
+    -rw-r--r-- 1 root root  924 Jul 26 21:56 dev-user.csr
+    -rw------- 1 root root 1675 Jul 26 21:56 dev-user.key
+
+    NOTE - Change developer-user.crt to dev-user.crt
+    
+    root@controlplane:~# cat my-kube-config | sed "s/developer-user.crt/dev-user.crt/" > /root/.kube/config
+    root@controlplane:~# k get pods
+    No resources found in default namespace.
+
+</details>

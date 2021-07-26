@@ -1,0 +1,249 @@
+## Questions
+
+### 1) We have a new user akshay. Inspect the CSR file we have created for him
+
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ cat akshay.csr
+    -----BEGIN CERTIFICATE REQUEST-----
+    MIICVjCCAT4CAQAwETEPMA0GA1UEAwwGYWtzaGF5MIIBIjANBgkqhkiG9w0BAQEF
+    AAOCAQ8AMIIBCgKCAQEAv+WyEy/xO1+SH5My79LjGXqJlRTTbuF8lIax1oMx5iNC
+    iYqnjFoyKKEZBjMHG/H1ZaQ39eYLyriJHsJhgXtY9hfLXmcKScb/SrNv6ZrBKkzw
+    sXK+H2kD1N57wU/2mSRQM0yDG4eWbJAaROMsGz85lNiHgoDBVA6Izr6PhcgLPebs
+    12TVJ3eeRJqTfoQgqwBNRfdngpIrAwhLJUUl9xumlPsUozQE/3enOa5YTL6NrAMG
+    3s5X9JBvT/Z9hnN6ddtU0Oy59JlBAo6ilwYV+SZ022f4uGPehVTtlOATDWIH++U6
+    XCdHh4KcbpqQ0fWTotn27OWceNmng64CrTX/bfOdZQIDAQABoAAwDQYJKoZIhvcN
+    AQELBQADggEBADEQ8teaCx+2WfGaYZi3+terJoeBI20OGvogd7TsEUqYjWBGT7iM
+    6QCQMM+OUHcBSZTAHr39kkEHMNTvaE7gQh+xaFnLUTrDfGJVbkoB9V/lID1bicjE
+    FsEgoQQJpOroR37F9qns9ahbEA3Y3Ed1/tjsfEPPsY4QFEvPaq+F8aKzt0OfFs9G
+    sAJC6xYtMqh0uaNIB92oGgK0zYvxbondg6O2amefdO85PTRebTUMtIzBWwtPS3wE
+    TcJNM/dDLKmAGh12M/UsfcsYIgPMNEbj1eV8LOtMETdU/ZvH+vQ5ZGn3yI0JT8UX
+    cVkTGhtxej379WOBzkL1FYpeOfZVhcdvIqE=
+    -----END CERTIFICATE REQUEST-----
+    controlplane $ alias CSR_TR="openssl req -noout -text -in"
+    controlplane $ CSR_TR akshay.csr
+        Certificate Request:
+        Data:
+        Version: 1 (0x0)
+        Subject: CN = akshay
+        Subject Public Key Info:
+        Public Key Algorithm: rsaEncryption
+        RSA Public-Key: (2048 bit)
+        Modulus:
+        00:bf:e5:b2:13:2f:f1:3b:5f:92:1f:93:32:ef:d2:
+        e3:19:7a:89:95:14:d3:6e:e1:7c:94:86:b1:d6:83:
+        31:e6:23:42:89:8a:a7:8c:5a:32:28:a1:19:06:33:
+        07:1b:f1:f5:65:a4:37:f5:e6:0b:ca:b8:89:1e:c2:
+        61:81:7b:58:f6:17:cb:5e:67:0a:49:c6:ff:4a:b3:
+        6f:e9:9a:c1:2a:4c:f0:b1:72:be:1f:69:03:d4:de:
+        7b:c1:4f:f6:99:24:50:33:4c:83:1b:87:96:6c:90:
+        1a:44:e3:2c:1b:3f:39:94:d8:87:82:80:c1:54:0e:
+        88:ce:be:8f:85:c8:0b:3d:e6:ec:d7:64:d5:27:77:
+        9e:44:9a:93:7e:84:20:ab:00:4d:45:f7:67:82:92:
+        2b:03:08:4b:25:45:25:f7:1b:a6:94:fb:14:a3:34:
+        04:ff:77:a7:39:ae:58:4c:be:8d:ac:03:06:de:ce:
+        57:f4:90:6f:4f:f6:7d:86:73:7a:75:db:54:d0:ec:
+        b9:f4:99:41:02:8e:a2:97:06:15:f9:26:74:db:67:
+        f8:b8:63:de:85:54:ed:94:e0:13:0d:62:07:fb:e5:
+        3a:5c:27:47:87:82:9c:6e:9a:90:d1:f5:93:a2:d9:
+        f6:ec:e5:9c:78:d9:a7:83:ae:02:ad:35:ff:6d:f3:
+        9d:65
+        Exponent: 65537 (0x10001)
+        Attributes:
+        a0:00
+        Signature Algorithm: sha256WithRSAEncryption
+        31:10:f2:d7:9a:0b:1f:b6:59:f1:9a:61:98:b7:fa:d7:ab:26:
+        87:81:23:6d:0e:1a:fa:20:77:b4:ec:11:4a:98:8d:60:46:4f:
+        b8:8c:e9:00:90:30:cf:8e:50:77:01:49:94:c0:1e:bd:fd:92:
+        41:07:30:d4:ef:68:4e:e0:42:1f:b1:68:59:cb:51:3a:c3:7c:
+        62:55:6e:4a:01:f5:5f:e5:20:3d:5b:89:c8:c4:16:c1:20:a1:
+        04:09:a4:ea:e8:47:7e:c5:f6:a9:ec:f5:a8:5b:10:0d:d8:dc:
+        47:75:fe:d8:ec:7c:43:cf:b1:8e:10:14:4b:cf:6a:af:85:f1:
+        a2:b3:b7:43:9f:16:cf:46:b0:02:42:eb:16:2d:32:a8:74:b9:
+        a3:48:07:dd:a8:1a:02:b4:cd:8b:f1:6e:89:dd:83:a3:b6:6a:
+        67:9f:74:ef:39:3d:34:5e:6d:35:0c:b4:8c:c1:5b:0b:4f:4b:
+        7c:04:4d:c2:4d:33:f7:43:2c:a9:80:1a:1d:76:33:f5:2c:7d:
+        cb:18:22:03:cc:34:46:e3:d5:e5:7c:2c:eb:4c:11:37:54:fd:
+        9b:c7:fa:f4:39:64:69:f7:c8:8d:09:4f:c5:17:71:59:13:1a:
+        1b:71:7a:3d:fb:f5:63:81:ce:42:f5:15:8a:5e:39:f6:55:85:
+        c7:6f:22:a1
+</details>
+
+### 2) Create a CertificateSigningRequest object with the name akshay with the contents of the akshay.csr file
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    1) Base64 encode
+    ==> controlplane $ cat akshay.csr | base64
+        LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBN
+        QTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJD
+        Z0tDQVFFQXYrV3lFeS94TzErU0g1TXk3OUxqR1hxSmxSVFRidUY4bElheDFvTXg1aU5DCmlZcW5q
+        Rm95S0tFWkJqTUhHL0gxWmFRMzllWUx5cmlKSHNKaGdYdFk5aGZMWG1jS1NjYi9Tck52NlpyQktr
+        encKc1hLK0gya0QxTjU3d1UvMm1TUlFNMHlERzRlV2JKQWFST01zR3o4NWxOaUhnb0RCVkE2SXpy
+        NlBoY2dMUGVicwoxMlRWSjNlZVJKcVRmb1FncXdCTlJmZG5ncElyQXdoTEpVVWw5eHVtbFBzVW96
+        UUUvM2VuT2E1WVRMNk5yQU1HCjNzNVg5SkJ2VC9aOWhuTjZkZHRVME95NTlKbEJBbzZpbHdZVitT
+        WjAyMmY0dUdQZWhWVHRsT0FURFdJSCsrVTYKWENkSGg0S2NicHFRMGZXVG90bjI3T1djZU5tbmc2
+        NENyVFgvYmZPZFpRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBREVROHRlYUN4
+        KzJXZkdhWVppMyt0ZXJKb2VCSTIwT0d2b2dkN1RzRVVxWWpXQkdUN2lNCjZRQ1FNTStPVUhjQlNa
+        VEFIcjM5a2tFSE1OVHZhRTdnUWgreGFGbkxVVHJEZkdKVmJrb0I5Vi9sSUQxYmljakUKRnNFZ29R
+        UUpwT3JvUjM3RjlxbnM5YWhiRUEzWTNFZDEvdGpzZkVQUHNZNFFGRXZQYXErRjhhS3p0ME9mRnM5
+        RwpzQUpDNnhZdE1xaDB1YU5JQjkyb0dnSzB6WXZ4Ym9uZGc2TzJhbWVmZE84NVBUUmViVFVNdEl6
+        Qld3dFBTM3dFClRjSk5NL2RETEttQUdoMTJNL1VzZmNzWUlnUE1ORWJqMWVWOExPdE1FVGRVL1p2
+        SCt2UTVaR24zeUkwSlQ4VVgKY1ZrVEdodHhlajM3OVdPQnprTDFGWXBlT2ZaVmhjZHZJcUU9Ci0t
+        LS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+
+    2) Create Certificate 
+    ==> controlplane $ k create -f /var/answers/akshay-csr.yaml
+        Warning: certificates.k8s.io/v1beta1 CertificateSigningRequest is deprecated in v1.19+, unavailable in v1.22+; use certificates.k8s.io/v1 CertificateSigningRequest
+        certificatesigningrequest.certificates.k8s.io/akshay created
+
+    ====================
+    apiVersion: certificates.k8s.io/v1beta1
+    kind: CertificateSigningRequest
+    metadata:
+        name: akshay
+    spec:
+        signerName: kubernetes.io/kube-apiserver-client
+    groups:
+        - system:authenticated
+    request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXYrV3lFeS94TzErU0g1TXk3OUxqR1hxSmxSVFRidUY4bElheDFvTXg1aU5DCmlZcW5qRm95S0tFWkJqTUhHL0gxWmFRMzllWUx5cmlKSHNKaGdYdFk5aGZMWG1jS1NjYi9Tck52NlpyQktrencKc1hLK0gya0QxTjU3d1UvMm1TUlFNMHlERzRlV2JKQWFST01zR3o4NWxOaUhnb0RCVkE2SXpyNlBoY2dMUGVicwoxMlRWSjNlZVJKcVRmb1FncXdCTlJmZG5ncElyQXdoTEpVVWw5eHVtbFBzVW96UUUvM2VuT2E1WVRMNk5yQU1HCjNzNVg5SkJ2VC9aOWhuTjZkZHRVME95NTlKbEJBbzZpbHdZVitTWjAyMmY0dUdQZWhWVHRsT0FURFdJSCsrVTYKWENkSGg0S2NicHFRMGZXVG90bjI3T1djZU5tbmc2NENyVFgvYmZPZFpRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBREVROHRlYUN4KzJXZkdhWVppMyt0ZXJKb2VCSTIwT0d2b2dkN1RzRVVxWWpXQkdUN2lNCjZRQ1FNTStPVUhjQlNaVEFIcjM5a2tFSE1OVHZhRTdnUWgreGFGbkxVVHJEZkdKVmJrb0I5Vi9sSUQxYmljakUKRnNFZ29RUUpwT3JvUjM3RjlxbnM5YWhiRUEzWTNFZDEvdGpzZkVQUHNZNFFGRXZQYXErRjhhS3p0ME9mRnM5RwpzQUpDNnhZdE1xaDB1YU5JQjkyb0dnSzB6WXZ4Ym9uZGc2TzJhbWVmZE84NVBUUmViVFVNdEl6Qld3dFBTM3dFClRjSk5NL2RETEttQUdoMTJNL1VzZmNzWUlnUE1ORWJqMWVWOExPdE1FVGRVL1p2SCt2UTVaR24zeUkwSlQ4VVgKY1ZrVEdodHhlajM3OVdPQnprTDFGWXBlT2ZaVmhjZHZJcUU9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+    usages:
+        - digital signature
+        - key encipherment
+        - server auth
+    ===============
+</details>
+
+###3) What is the Condition of the newly created Certificate Signing Request object?
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    PENDING!!
+        
+    controlplane $ k get csr
+    NAME        AGE   SIGNERNAME                                    REQUESTOR                  CONDITION
+    akshay      52s   kubernetes.io/kube-apiserver-client           kubernetes-admin           Pending
+    csr-9hvd2   14m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:96771a    Approved,Issued
+    csr-lclvw   14m   kubernetes.io/kube-apiserver-client-kubelet   system:node:controlplane   Approved,Issued
+
+</details>
+
+### 4) Approve the CSR Request
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ kubectl certificate approve akshay
+    certificatesigningrequest.certificates.k8s.io/akshay approved
+
+</details>
+
+### 5) How many CSR Requests are there in the cluster (including "Approved"/"Pending")?
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ k get csr
+    NAME        AGE     SIGNERNAME                                    REQUESTOR                  CONDITION
+    akshay      3m55s   kubernetes.io/kube-apiserver-client           kubernetes-admin           Approved,Failed
+    csr-9hvd2   17m     kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:96771a    Approved,Issued
+    csr-lclvw   17m     kubernetes.io/kube-apiserver-client-kubelet   system:node:controlplane   Approved,Issued
+
+</details>
+
+### 6) Who requested the csr-* request?
+<details>
+  <summary markdown="span">Answer</summary>
+        
+        master/controlplane node
+        
+        From Above - system:node:controlplane 
+
+</details>
+
+### The other CSR's are requested during the TLS Bootstrapping process. We will discuss more about it later in the course when we go through the TLS bootstrap section.
+
+### 7) During a routine check you realized that there is a new CSR request in place. What is the name of this request?
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ k get csr
+    NAME          AGE    SIGNERNAME                                    REQUESTOR                  CONDITION
+    agent-smith   33s    kubernetes.io/kube-apiserver-client           agent-x                    Pending
+    akshay        8m1s   kubernetes.io/kube-apiserver-client           kubernetes-admin           Approved,Failed
+    csr-9hvd2     21m    kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:96771a    Approved,Issued
+    csr-lclvw     21m    kubernetes.io/kube-apiserver-client-kubelet   system:node:controlplane   Approved,Issued
+
+</details>
+
+### 8) Hmmm.. You are not aware of a request coming in. What groups is this CSR requesting access to?
+- Check the details about the request. Preferebly in YAML.
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ k get csr/agent-smith -ocustom-columns=":.spec.groups"
+        [system:masters system:authenticated]
+
+    controlplane $ k get csr/agent-smith -oyaml
+    apiVersion: certificates.k8s.io/v1
+    kind: CertificateSigningRequest
+    metadata:
+      creationTimestamp: "2021-07-24T22:29:34Z"
+      managedFields:
+      - apiVersion: certificates.k8s.io/v1beta1
+        fieldsType: FieldsV1
+        fieldsV1:
+          f:spec:
+            f:groups: {}
+            f:request: {}
+            f:signerName: {}
+            f:usages: {}
+        manager: kubectl-create
+        operation: Update
+        time: "2021-07-24T22:29:34Z"
+      name: agent-smith
+      resourceVersion: "3416"
+      selfLink: /apis/certificates.k8s.io/v1/certificatesigningrequests/agent-smith
+      uid: cecd831f-e21c-41fd-902e-255f2bc65824
+    spec:
+      groups:
+      - system:masters
+      - system:authenticated
+      request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1dEQ0NBVUFDQVFBd0V6RVJNQThHQTFVRUF3d0libVYzTFhWelpYSXdnZ0VpTUEwR0NTcUdTSWIzRFFFQgpBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRE8wV0pXK0RYc0FKU0lyanBObzV2UklCcGxuemcrNnhjOStVVndrS2kwCkxmQzI3dCsxZUVuT041TXVxOTlOZXZtTUVPbnJEVU8vdGh5VnFQMncyWE5JRFJYall5RjQwRmJtRCs1eld5Q0sKeTNCaWhoQjkzTUo3T3FsM1VUdlo4VEVMcXlhRGtuUmwvanYvU3hnWGtvazBBQlVUcFdNeDRCcFNpS2IwVSt0RQpJRjVueEF0dE1Wa0RQUTdOYmVaUkc0M2IrUVdsVkdSL3o2RFdPZkpuYmZlek90YUF5ZEdMVFpGQy93VHB6NTJrCkVjQ1hBd3FDaGpCTGt6MkJIUFI0Sjg5RDZYYjhrMzlwdTZqcHluZ1Y2dVAwdEliT3pwcU52MFkwcWRFWnB3bXcKajJxRUwraFpFV2trRno4MGxOTnR5VDVMeE1xRU5EQ25JZ3dDNEdaaVJHYnJBZ01CQUFHZ0FEQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBUUVBUzlpUzZDMXV4VHVmNUJCWVNVN1FGUUhVemFsTnhBZFlzYU9SUlFOd0had0hxR2k0CmhPSzRhMnp5TnlpNDRPT2lqeWFENnRVVzhEU3hrcjhCTEs4S2czc3JSRXRKcWw1ckxaeTlMUlZyc0pnaEQ0Z1kKUDlOTCthRFJTeFJPVlNxQmFCMm5XZVlwTTVjSjVURjUzbGVzTlNOTUxRMisrUk1uakRRSjdqdVBFaWM4L2RoawpXcjJFVU02VWF3enlrcmRISW13VHYybWxNWTBSK0ROdFYxWWllKzBIOS9ZRWx0K0ZTR2poNUw1WVV2STFEcWl5CjRsM0UveTNxTDcxV2ZBY3VIM09zVnBVVW5RSVNNZFFzMHFXQ3NiRTU2Q0M1RGhQR1pJcFVibktVcEF3a2ErOEUKdndRMDdqRytocGtueG11RkFlWHhnVXdvZEFMYUo3anUvVERJY3c9PQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K
+      signerName: kubernetes.io/kube-apiserver-client
+      usages:
+      - digital signature
+      - key encipherment
+      - server auth
+      username: agent-x
+    status: {}
+
+</details>
+
+### 9) That doesn't look very right. Reject that request.
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ k certificate deny csr/agent-smith
+    certificatesigningrequest.certificates.k8s.io/agent-smith denied
+
+</details>
+
+### 10) Let's get rid of it. Delete the new CSR object
+<details>
+  <summary markdown="span">Answer</summary>
+
+    controlplane $ k delete csr/agent-smith
+    certificatesigningrequest.certificates.k8s.io "agent-smith" deleted
+
+</details>
+
+### 
+<details>
+  <summary markdown="span">Answer</summary>
+
+</details>

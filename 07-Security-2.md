@@ -228,4 +228,31 @@ We can also define Security Contexts at...
     ![img_16.png](assets/7_security_context_container.png)
 
 
+## H) Network Policies
+
+Our Example: ![img_5.png](assets/7_netpol_basic example.png)
+
+All Required Rules: ![img_6.png](assets/7_netpol_basic_example_rules.png)
+
+Sample Network Policy: ![img_7.png](assets/7_netpol_sample_yaml.png)
+
+
+## H) Developing Network Pods
+
+### Setup | Scenario
+- Protect DB POD - Only {Pod: API, Port: 3306}
+- RECALL - K8s Default Behavior is traffic allowance from all Pods to all Pods
+
+
+### Designing your Network Policy
+- NOTE - W/ incoming traffic
+   - Response is automatically allowed back
+   - SO YOU DON'T NEED AN EGRESS MATCHING AN INGRESS!!!  
+   - HOWEVER -> If DB tries to make a call to API, disallowed
+   - ORIGINATION --> Is all that matters. 
+
+![img_5.png](assets/7_netpol_design_allow_disallow.png)
+
+![img_6.png](assets/7_netpol_design_namespace.png)
+
 

@@ -34,7 +34,7 @@
 2) Kube-Proxy - Allows communication between worker nodes
     - Has rules that ensure worker nodes' containers can communicate with each other
     
-3) Container Runtime - Allows for container-related tasks (pulling/pushing images, etc.)
+3) Container Runtime - Allows for contain**er-related tasks (pulling/pushing images, etc.)
     
 
 ## B) Etcd | In-Depth

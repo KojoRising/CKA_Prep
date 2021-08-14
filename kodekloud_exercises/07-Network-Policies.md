@@ -1,0 +1,179 @@
+## Questions
+
+### 1) How many network policies do you see in the environment?
+We have deployed few web applications, services and network policies. Inspect the environment.
+<details> 
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# k get netpol -A | grep -vc NAME
+    1
+</details>
+
+### 2) What is the name of the Network Policy?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# k get netpol -oyaml | grep name:
+    name: payroll-policy
+            name: internal
+        name: payroll
+
+</details>
+
+### 3) Which pod is the Network Policy applied on?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# k get netpol -ocustom-columns=:.spec.podSelector.matchLabels.name | xargs
+    payroll
+
+    root@controlplane:~# k get netpol -ocustom-columns=:.spec.ingress[].from[].podSelector.matchLabels.name | xargs
+    internal
+
+</details>
+
+### 4) What type of traffic is this Network Policy configured to handle?
+<details>
+  <summary markdown="span">Answer</summary>
+
+        root@controlplane:~# k get netpol -oyaml
+        apiVersion: v1
+        items:
+        - apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+              name: payroll-policy
+              namespace: default
+        spec:
+          ingress:
+          - from:
+            - podSelector:
+                matchLabels:
+                    name: internal
+              ports:
+              - port: 8080
+                protocol: TCP
+          podSelector:
+            matchLabels:
+                name: payroll
+          policyTypes:
+          - Ingress
+      kind: List
+      metadata:
+        resourceVersion: ""
+        selfLink: ""
+</details>
+
+### 5) What is the impact of the rule configured on this Network Policy?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    Traffic from Internal to Payroll Pod is allowed
+</details>
+
+### 6) What is the impact of the rule configured on this Network Policy? 
+<details>
+  <summary markdown="span">Answer</summary>
+
+        Internal POD can access port 8080 on Payroll Pod
+</details>
+
+### 7) Perform a connectivity test using the User Interface in these Applications to access the payroll-service at port 8080.
+<details>
+  <summary markdown="span">Answer</summary>
+
+    SUCCESS => 10.104.185.201:8080
+    FAIL => 10.109.24.4:8080
+
+    root@controlplane:~# k get svc
+    NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+    db-service         ClusterIP   10.103.179.115   <none>        3306/TCP         10m
+    external-service   NodePort    10.109.24.4      <none>        8080:30080/TCP   10m
+    internal-service   NodePort    10.98.157.104    <none>        8080:30082/TCP   10m
+    kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP          14m
+    payroll-service    NodePort    10.104.185.201   <none>        8080:30083/TCP   10m
+
+</details>
+
+### 8) Perform a connectivity test using the User Interface of the Internal Application to access the external-service at port 8080.
+<details>
+  <summary markdown="span">Answer</summary>
+
+    SUCCESS => 10.109.24.4:8080
+
+</details>
+
+### 9) Create a network policy to allow traffic from the Internal application only to the payroll-service and db-service.
+Use the spec given on the below. You might want to enable ingress traffic to the pod to test your rules in the UI.
+
+    Policy Name: internal-policy
+    Policy Type: Egress
+    Egress Allow: payroll
+    Payroll Port: 8080
+    Egress Allow: mysql
+    MySQL Port: 3306
+<details>
+  <summary markdown="span">Answer</summary>
+
+    apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: internal-policy
+      namespace: default
+    spec:
+      podSelector:
+        matchLabels:
+          name: internal
+      policyTypes:
+      - Egress
+      - Ingress
+      ingress:
+        - {}
+      egress:
+      - to:
+        - podSelector:
+            matchLabels:
+              name: mysql
+        ports:
+        - protocol: TCP
+          port: 3306
+    
+      - to:
+        - podSelector:
+            matchLabels:
+              name: payroll
+        ports:
+        - protocol: TCP
+          port: 8080
+    
+      - ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP
+
+</details>
+
+### 10)
+<details>
+  <summary markdown="span">Answer</summary>
+
+</details>
+
+### 11)
+<details>
+  <summary markdown="span">Answer</summary>
+
+</details>
+
+### 12)
+<details>
+  <summary markdown="span">Answer</summary>
+
+</details>
+
+### 13)
+<details>
+  <summary markdown="span">Answer</summary>
+
+</details>

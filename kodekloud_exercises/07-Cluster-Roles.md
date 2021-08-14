@@ -1,0 +1,207 @@
+## Questions
+
+### 1) How many ClusterRoles do you see defined in the cluster?
+<details> 
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# k get clusterroles -A
+    NAME                                                                   CREATED AT
+    admin                                                                  2021-08-01T17:47:59Z
+    cluster-admin                                                          2021-08-01T17:47:59Z
+    edit                                                                   2021-08-01T17:47:59Z
+    flannel                                                                2021-08-01T17:48:07Z
+    kubeadm:get-nodes                                                      2021-08-01T17:48:03Z
+    system:aggregate-to-admin                                              2021-08-01T17:48:00Z
+    system:aggregate-to-edit                                               2021-08-01T17:48:00Z
+    system:aggregate-to-view                                               2021-08-01T17:48:00Z
+    system:auth-delegator                                                  2021-08-01T17:48:00Z
+    system:basic-user                                                      2021-08-01T17:47:59Z
+    system:certificates.k8s.io:certificatesigningrequests:nodeclient       2021-08-01T17:48:00Z
+    system:certificates.k8s.io:certificatesigningrequests:selfnodeclient   2021-08-01T17:48:00Z
+    system:certificates.k8s.io:kube-apiserver-client-approver              2021-08-01T17:48:00Z
+    system:certificates.k8s.io:kube-apiserver-client-kubelet-approver      2021-08-01T17:48:00Z
+    system:certificates.k8s.io:kubelet-serving-approver                    2021-08-01T17:48:00Z
+    system:certificates.k8s.io:legacy-unknown-approver                     2021-08-01T17:48:00Z
+    system:controller:attachdetach-controller                              2021-08-01T17:48:00Z
+    system:controller:certificate-controller                               2021-08-01T17:48:00Z
+    system:controller:clusterrole-aggregation-controller                   2021-08-01T17:48:00Z
+    system:controller:cronjob-controller                                   2021-08-01T17:48:00Z
+    system:controller:daemon-set-controller                                2021-08-01T17:48:00Z
+    system:controller:deployment-controller                                2021-08-01T17:48:00Z
+    system:controller:disruption-controller                                2021-08-01T17:48:00Z
+    system:controller:endpoint-controller                                  2021-08-01T17:48:00Z
+    system:controller:endpointslice-controller                             2021-08-01T17:48:00Z
+    system:controller:endpointslicemirroring-controller                    2021-08-01T17:48:00Z
+    system:controller:expand-controller                                    2021-08-01T17:48:00Z
+    system:controller:generic-garbage-collector                            2021-08-01T17:48:00Z
+    system:controller:horizontal-pod-autoscaler                            2021-08-01T17:48:00Z
+    system:controller:job-controller                                       2021-08-01T17:48:00Z
+    system:controller:namespace-controller                                 2021-08-01T17:48:00Z
+    system:controller:node-controller                                      2021-08-01T17:48:00Z
+    system:controller:persistent-volume-binder                             2021-08-01T17:48:00Z
+    system:controller:pod-garbage-collector                                2021-08-01T17:48:00Z
+    system:controller:pv-protection-controller                             2021-08-01T17:48:00Z
+    system:controller:pvc-protection-controller                            2021-08-01T17:48:00Z
+    system:controller:replicaset-controller                                2021-08-01T17:48:00Z
+    system:controller:replication-controller                               2021-08-01T17:48:00Z
+    system:controller:resourcequota-controller                             2021-08-01T17:48:00Z
+    system:controller:root-ca-cert-publisher                               2021-08-01T17:48:00Z
+    system:controller:route-controller                                     2021-08-01T17:48:00Z
+    system:controller:service-account-controller                           2021-08-01T17:48:00Z
+    system:controller:service-controller                                   2021-08-01T17:48:00Z
+    system:controller:statefulset-controller                               2021-08-01T17:48:00Z
+    system:controller:ttl-controller                                       2021-08-01T17:48:00Z
+    system:coredns                                                         2021-08-01T17:48:04Z
+    system:discovery                                                       2021-08-01T17:47:59Z
+    system:heapster                                                        2021-08-01T17:48:00Z
+    system:kube-aggregator                                                 2021-08-01T17:48:00Z
+    system:kube-controller-manager                                         2021-08-01T17:48:00Z
+    system:kube-dns                                                        2021-08-01T17:48:00Z
+    system:kube-scheduler                                                  2021-08-01T17:48:00Z
+    system:kubelet-api-admin                                               2021-08-01T17:48:00Z
+    system:monitoring                                                      2021-08-01T17:47:59Z
+    system:node                                                            2021-08-01T17:48:00Z
+    system:node-bootstrapper                                               2021-08-01T17:48:00Z
+    system:node-problem-detector                                           2021-08-01T17:48:00Z
+    system:node-proxier                                                    2021-08-01T17:48:00Z
+    system:persistent-volume-provisioner                                   2021-08-01T17:48:00Z
+    system:public-info-viewer                                              2021-08-01T17:47:59Z
+    system:service-account-issuer-discovery                                2021-08-01T17:48:00Z
+    system:volume-scheduler                                                2021-08-01T17:48:00Z
+    view                                                                   2021-08-01T17:47:59Z
+    root@controlplane:~# k get clusterroles -A | grep -vc NAME   
+    63
+
+</details>
+
+### 2) How many ClusterRoleBindings exist on the cluster?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# k get clusterRoleBindings -A | grep -vc NAME
+    48        
+
+</details>
+
+### 3) What namespace is the cluster-admin clusterrole part of?
+<details>
+  <summary markdown="span">Answer</summary>
+
+        A: ClusterRoles are cluster-wide and do not belong to any particular namespace
+
+</details>
+
+### 4) What users have the cluster-admin role?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    ==> system:masters
+
+    root@controlplane:~# k get clusterrolebinding/cluster-admin -ocustom-columns=:.subjects | xargs
+    [map[apiGroup:rbac.authorization.k8s.io kind:Group name:system:masters]]
+
+    root@controlplane:~# k get clusterrolebinding/cluster-admin -ocustom-columns=:.subjects[].name | xargs
+    system:masters
+
+</details>
+
+### 5) What actions does the cluster-admin role allow?
+<details>
+  <summary markdown="span">Answer</summary>
+
+    root@controlplane:~# k get clusterrole/cluster-admin -oyaml
+    ...
+    rules:
+    - apiGroups:
+        - '*'
+          resources:
+        - '*'
+          verbs:
+        - '*'
+    - nonResourceURLs:
+        - '*'
+          verbs:
+        - '*'
+
+</details>
+
+### 6) A new user michelle joined the team. She will be focusing on the nodes in the cluster. Create the required ClusterRoles and ClusterRoleBindings so she gets access to the nodes.
+<details>
+  <summary markdown="span">Answer</summary>
+
+    ////////WRONG///////////
+    kind: ClusterRole
+    apiVersion:  rbac.authorization.k8s.io/v1
+    metadata:
+        name: node-user
+    rules:
+    - apiGroups: [v1]
+      resources: ["nodes"]
+      resourceNames: []
+      verbs: ["list"]
+    
+    ////////RIGHT///////////
+    kind: ClusterRole
+    apiVersion:  rbac.authorization.k8s.io/v1
+    metadata:
+    name: node-user
+    rules:
+    - apiGroups: [""]
+      resources: ["nodes"]
+      verbs: ["list"]
+    
+    kind: ClusterRoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+        name: node-user
+    roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: node-user
+    subjects:
+    - apiGroup: rbac.authorization.k8s.io
+      kind: User
+      name: michelle
+  
+</details>
+
+### 7) michelle's responsibilities are growing and now she will be responsible for storage as well. Create the required ClusterRoles and ClusterRoleBindings to allow her access to Storage.
+Get the API groups and resource names from command kubectl api-resources. Use the given spec:
+
+    ClusterRole: storage-admin
+    Resource: persistentvolumes
+    Resource: storageclasses
+    ClusterRoleBinding: michelle-storage-admin
+    ClusterRoleBinding Subject: michelle
+    ClusterRoleBinding Role: storage-admin
+
+<details>
+  <summary markdown="span">Answer</summary>
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+name: storage-admin
+rules:
+- apiGroups: [""]
+  resources: ["persistentvolumes"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["storageclasses"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    name: michelle-storage-admin
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: storage-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: michelle
+
+</details>

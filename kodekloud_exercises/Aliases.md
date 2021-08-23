@@ -1,3 +1,35 @@
+# Planning
+
+## 7 | Practice Tests
+1) View Certificates
+2) Certificates API
+3) KubeConfig
+4) RBAC
+5) Cluster Roles/Role Bindings
+6) Service Accounts
+7) Image Security
+8) Security Contexts
+9) Network Policies
+
+
+## 8 | Practice Tests
+1) PV/PVCs
+2) Storage-Class
+
+
+## 9) | Networking
+1) Explore K8s Environment
+2) Explore CNI Weave
+3) Deploy Network Solution
+4) Networking Weave
+5) Service Networking
+6) Explore DNS
+7) Ingress
+8) Ingress-2
+9)
+10) 
+
+
 # CKA Aliases
 
 
@@ -12,9 +44,9 @@ alias CRT_GREP="grep --regexp='--'"
 
 
 ## Context Specific
+alias k=kubectl
 alias kubens="k config set-context --current --namespace"
 alias kubectx='k config use-context'
-alias k_get_ns="k config view --minify | grep namespace"
 
 
 

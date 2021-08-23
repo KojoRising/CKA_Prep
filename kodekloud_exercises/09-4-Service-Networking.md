@@ -25,7 +25,7 @@
     root@controlplane:~# k get pod/weave-net-2hsxz -n=kube-system -ocustom-columns=:spec.containers[] | grep IPALLOC_RANGE
     map[command:[/home/weave/launch.sh] env:[map[name:HOSTNAME valueFrom:map[fieldRef:map[apiVersion:v1 fieldPath:spec.nodeName]]] map[name:IPALLOC_RANGE value:10.50.0.0/16] map[name:INIT_CONTAINER value:true]] image:docker.io/weaveworks/weave-kube:2.8.1 imagePullPolicy:IfNotPresent name:weave readinessProbe:map[failureThreshold:3 httpGet:map[host:127.0.0.1 path:/status port:6784 scheme:HTTP] periodSeconds:10 successThreshold:1 timeoutSeconds:1] resources:map[requests:map[cpu:50m memory:100Mi]] securityContext:map[privileged:true] terminationMessagePath:/dev/termination-log terminationMessagePolicy:File volumeMounts:[map[mountPath:/weavedb name:weavedb] map[mountPath:/host/var/lib/dbus name:dbus] map[mountPath:/host/etc/machine-id name:machine-id readOnly:true] map[mountPath:/run/xtables.lock name:xtables-lock] map[mountPath:/var/run/secrets/kubernetes.io/serviceaccount name:weave-net-token-fd2gz readOnly:true]]]
     
-    root@controlplane:~# k get pod/weave-net-2hsxz -n=kube-system -ocustom-columns=:spec..containers[0].env[1].value | xargs
+    root@controlplane:~# k get pod/weave-net-2hsxz -n=kube-system -ocustom-columns=:spec.containers[0].env[1].value | xargs
     10.50.0.0/16
 </details>
 

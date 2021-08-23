@@ -246,5 +246,135 @@ POD IPs: 10.244.0.0/16 => {10.244.0.0, 10.244.255.255}
 
 ## 7 | DNS in Kubernetes
 
-By Default - Kubernetes creates
+Node IPs/Names - Registered in your organization's DNS Server *(Not our concern)*
+
+#### Objectives
+1) Intra-Cluster DNS Resolution - Between the Nodes
+
+Kubernetes deploys a built-in DNS server by default
+
+
+#### Regarding Service Creation
+1) k8s DNS Service - Creates a Record for the Service
+  ==> Maps the Service-Name ==> To the IP Address
+
+
+NOTE - All Pods/Services are grouped together in a subdomain using the namespace
+  - ***Services are further grouped into "svc" subdomain***
+
+#### Regarding Pod Creation
+1) Pod Record Creation - NOT enabled by default
+2) Name ISN'T USED - Instead, Pod-IP is used (but w/ "-" instead of ".")
+  - Example: (10.244.2.5 => 10-244-2-5)
+ 
+QUESTIONS:
+1) What type of records does the DNS Service Create
+2) If DNS creates name-IP Service Records, 
+   - Who creates the records for Mapping Service-IP's to Pod IPs?
+   - And what are those records called?
+
+
+#### SVC-FQDN
+![img_5.png](assets/09_k8s_dns_svc_fqdn.png)
+
+#### POD-FQDN
+![img_6.png](assets/09_k8s_dns_pod_fqdn.png)
+
+## 7 | CoreDNS
+
+**Preferred DNS-Server**
+1) Pre k8s@1.12 - ***kube-dns***
+2) Post k8s@1.12 - ***CoreDNS***
+
+
+#### CoreDNS Deployment
+1) Deployment in kube-system ns - 2 Pods
+2) Configuring CoreDNS - /etc/coredns/Corefile
+    - Consists of *Plugins* (basically keys in the file)
+    - Passed into Pod - As a ConfigMap called **coredns**
+
+#### Where is the Cluster's Top-Level Domain set?
+- In */etc/coredns/Corefile* - ***kubernetes*** key
+
+#### How can you enable Pod Records to be created?
+- In */etc/coredns/Corefile* - ***pod*** key
+
+#### How can you specify additional nameservers for Records that DNS can't solve?
+- In */etc/coredns/Corefile* - ***proxy*** key (/etc/resolv.conf holds the additional nameservers)
+
+#### How do the pods reach the DNS Server (Or CoreDNS Pod)?
+- CoreDNS also creates SVC - Called ***kube-dns***
+- ***Kubelet*** per Node - Adds kube-dns svc's IP to all Pods' "/etc/resolv.conf"
+    - This kube-dns IP is in the Kubelet's "/var/lib/kubelet/config.yaml" file
+
+![img_7.png](assets/09_coredns_host.png)
+
+
+## 8 | Ingress
+Recall - Service NodePort's - Can only allocate ports > 30,000
+
+### Setup Scenario | On-Prem vs. Cloud
+We have an application that we want to expose outside of our cluster
+
+![img_5.png](assets/9_ingress_overview.png)
+
+### Ingress General
+1) Built-In L7 Load-Balancer
+2) NOTE - To Expose Ingress outside of your Cluster
+    - Still have to Publish as NodePort/LoadBalancer Service 
+
+#### K8s Ingress Implementation | 2 Components
+
+1) **Ingress Controller** - Reverse Proxy
+    - Created as - *Deployment*
+2) **Ingress Resources** - *Network Traffic **Rules*** 
+    
+- NOTE - K8s by default ***DOES NOT*** come w/ Ingress Controller
+
+### IC (Ingress Controller) | Nginx Example
+
+#### Ingress Controllers - Nginx, Contour, HAProxy, Traefik, Istio, GCE (Google's L7 HTTP Load-Balancer)
+- GCE/Nginx are currently best supported
+- Controllers - Have Additional intelligence for watching cluster (for new resources/rules)
+
+**A) IC Main | Deployment**
+1) Within Image - Nginx Program is stored at "/nginx-ingress-controller"
+2) Configuring Nginx - *Use a **ConfigMap***
+3) Also must Specify - 2 Environment Variables
+    - PodName
+    - PodNamespace
+4)  Also must Specify - 2 Ports (HTTP-80 && HTTPS-443)
+5) FINALLY - We need a Service to expose the Controller as a Service (NodePort here)
+
+**B) Exposing IC | Service**
+1) Map the Deployment's Ports - To External Ports here (Also specify Protocols)
+
+**C) IC ServiceAccount | For Cluster-Watching (New Rules)**
+1) Should have correct - Roles/RoleBindings/ClusterRoles
+
+![img_6.png](assets/9_ingress_yaml_overview.png)
+
+### IR (Ingress Resources) | Online-Store Example
+
+**A) IR Main | Ingress**
+1) Traffic will be Routed - To ***Pod-Services***, not Pod-IPs directly
+
+![img_10.png](assets/09_ingress_resources_yaml.png)
+
+#### Example | 4 Rules
+*Each Rule Routes Top-Level Domain - **To a Subdomain***
+- Subdomains - *"wear.my-online-store.com", "watch.my-online-store.com"*
+- We create *additional Ingresss* - **Per Subdomain**
+
+![img_7.png](assets/9_ingress_resources_example.png)
+
+#### Traffic Splitting | 2 Ways
+1) By URL - 1 Rule, 2 Paths
+2) By HostName - 2 Rules, 1 Path 
+
+![img_8.png](assets/9_ingress_resources_traffic_splitting.png)
+
+### Examining Ingress Resources
+![img_9.png](assets/9_ingress_resource_describe.png)
+    
 

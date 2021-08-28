@@ -32,23 +32,22 @@
 
 # CKA Aliases
 
-
 ## Miscellaneous
 alias OBJ_COUNT="grep -vc NAME"
+alias CC="-ocustom-columns=NAME:.metadata.name"
+
 
 ## OpenSSL
 alias CRT_TR="openssl x509 -noout -text -in"
 alias CSR_TR="openssl req -noout -text -in"
 alias CRT_GREP="grep --regexp='--'"
 
-
-
 ## Context Specific
 alias k=kubectl
 alias kubens="k config set-context --current --namespace"
 alias kubectx='k config use-context'
-
-
+k_explain() { k explain $1 --recursive=true | grep "<" }
+==> Just Type in as-is into a command line
 
 ## Other Stuff
 alias k_delete="k delete --force --grace-period=0 po"

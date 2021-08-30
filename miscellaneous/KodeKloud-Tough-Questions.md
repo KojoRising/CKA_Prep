@@ -1,37 +1,12 @@
 # Commonly Missed k8s CKA Questions
 
-## 1 | FLASHCARDS | Commonly Missed
-
-### 1 | Intro
-### 2 | Core Concepts
-### 3 | Scheduling
-### 4 | Logging & Monitoring
-### 5 | Application Lifecycle Management
-### 6 | Cluster Maintenance
-### 7 | Security
-
-
-#### 7.1 | View-Certificate-Details
+## Best Question Sections
+#### 6.2 | Cluster-Upgrades
 #### 7.2 | Certificates-API
-#### 7.3 | Kube-Config
-#### 7.4 | RBAC
 #### 7.5 | Cluster-Roles
-1) Authorization Modes allowed [4+2]? 
-#### 7.6 | Service-Accounts
-1) Default Container Location -> /var/run/secrets/kubernetes/io/serviceaccount
-2) Check SA Permissions? 
-- k get rolebindings/clusterrolebindings -ocustom-columns=NAME:.metadata.name,RSC:.subjects[*].name | grep -e "$SA_NAME\|NAME" 
-#### 7.7 | Image-Security
-
-#### 7.8 | Security-Context
 #### 7.9 | Network-Policies
-1) netpol.spec [PIPE]? 
 
-
-
-
-
-## 2 | KodeKloud | Commonly Missed
+## 1 | KodeKloud | Commonly Missed
 
 ### 1 | Intro
 ### 2 | Core Concepts
@@ -39,6 +14,11 @@
 ### 4 | Logging & Monitoring
 ### 5 | Application Lifecycle Management
 ### 6 | Cluster Maintenance
+
+#### 6.1 | OS-Upgrades
+#### 6.2 | Cluster-Upgrades 
+#### 6.3 | Backup & Restore Methodologies 
+
 ### 7 | Security
 
 
@@ -49,9 +29,9 @@
 #### 7.5 | Cluster-Roles
 #### 7.6 | Service-Accounts
 #### 7.7 | Image-Security
+#### 7.8 | Security-Context
 1) What is the user used to execute the sleep process within the ubuntu-sleeper pod?
 5) Update pod ubuntu-sleeper to run as Root user and with the SYS_TIME capability.
-#### 7.8 | Security-Context
 #### 7.9 | Network-Policies
 10) Create a network policy to allow traffic from the Internal application only to the payroll-service and db-service.
 Use the spec given on the below. You might want to enable ingress traffic to the pod to test your rules in the UI.

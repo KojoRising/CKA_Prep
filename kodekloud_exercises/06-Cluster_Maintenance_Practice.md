@@ -202,7 +202,6 @@ Upgrade kubeadm tool (if not already), then the master components, and finally t
     ... 
 
     ### 1) CHECK LATEST | KUBEADM
-    root@controlplane:~# apt list kubeadm -a
     root@controlplane:~# apt list -a kubeadm
     Listing... Done
     kubeadm/kubernetes-xenial 1.21.2-00 amd64 [upgradable from: 1.19.0-00]

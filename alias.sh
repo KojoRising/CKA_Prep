@@ -1,5 +1,3 @@
-#!/bin/bash
-
 COUNT="grep -vc NAME"
 FIND="grep --color=always -e "^" -e"
 D="--dry-run=client -oyaml"

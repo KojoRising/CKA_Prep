@@ -23,8 +23,9 @@ ker() { k explain $1 --recursive=true | grep '<' | sed 's/<.*//'; }
 complete -F __start_kubectl k
 # IP Specific
 alias ipg="ip -f inet addr | grep inet"
-alias ipgNode="ipg | grep eth0"
-alias ipgPod="ipg | grep weave"
+alias ipgN="ipg | grep eth0"
+alias ipgP="ipg | grep weave"
+alias ipgS="cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep ip-range"
 # Miscellaneous
 alias e="ETCDCTL_API=3 etcdctl"
 alias km=kubeadm

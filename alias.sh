@@ -26,6 +26,8 @@ alias ipg="ip -f inet addr | grep inet"
 alias ipgN="ipg | grep eth0"
 alias ipgP="ipg | grep weave"
 alias ipgS="cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep ip-range"
+# Kube-Proxy
+alias kube-proxy-mode="kl ds/$(kg ds $N -l k8s-app=kube-proxy -ocustom-columns=:.metadata.name | xargs) $N | grep Using"
 # Miscellaneous
 alias e="ETCDCTL_API=3 etcdctl"
 alias km=kubeadm

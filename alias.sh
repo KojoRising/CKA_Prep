@@ -2,6 +2,7 @@ COUNT="grep -vc NAME"
 FIND="grep --color=always -e "^" -e"
 D="--dry-run=client -oyaml"
 d="--dry-run=client -oyaml"
+N="-n=kube-system"
 alias e="ETCDCTL_API=3 etcdctl"
 alias km=kubeadm
 alias k=kubectl

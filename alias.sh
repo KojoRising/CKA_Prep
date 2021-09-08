@@ -18,7 +18,8 @@ alias kc='k create'
 alias kcf="k create -f"
 alias kcd='k create $D'
 alias ke="k explain"
-alias ktmp="k run $RANDOM --image=busybox --rm -it --restart=Never -- /bin/sh"
+alias ktmp="k run $RANDOM --image=busybox --rm -it --restart=Never -- /bin/sh"
+alias kdns="k apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml"
 alias kdrain="k drain --ignore-daemonsets --force"
 ker() { k explain $1 --recursive=true | grep '<' | sed 's/<.*//'; }
 complete -F __start_kubectl k

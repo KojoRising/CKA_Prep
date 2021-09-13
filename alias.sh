@@ -33,3 +33,4 @@ alias kube-proxy-mode="kl ds/$(kg ds $N -l k8s-app=kube-proxy -ocustom-columns=:
 # Miscellaneous
 alias e="ETCDCTL_API=3 etcdctl"
 alias km=kubeadm
+alias SWAPOFF="sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab"

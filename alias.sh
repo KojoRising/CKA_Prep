@@ -22,7 +22,7 @@ alias ktmp="k run $RANDOM --image=busybox:1.28 --rm -it --restart=Never -- /bin/
 alias kdns="k apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml"
 alias kdrain="k drain --ignore-daemonsets --force"
 ker() { k explain $1 --recursive=true | grep '<' | sed 's/<.*//'; }
-kubens() { if [ -n "$1" ]; then k config set-context --current --namespace=$1; else k config view --minify | grep namespace | sed "s/namespace://" | xargs; fi; }
+kubens() { if [ -n "$1" ]; then k config set-context --current --namespace=$1 && kubens; else k config view --minify | grep namespace | sed "s/namespace://" | xargs; fi; }
 complete -F __start_kubectl k
 # IP Specific
 alias ipg="ip -f inet addr | grep inet"

@@ -23,7 +23,11 @@ alias kdns="k apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml"
 alias kdrain="k drain --ignore-daemonsets --force"
 ker() { k explain $1 --recursive=true | grep '<' | sed 's/<.*//'; }
 kubens() { if [ -n "$1" ]; then k config set-context --current --namespace=$1 && kubens; else k config view --minify | grep namespace | sed "s/namespace://" | xargs; fi; }
-complete -F __start_kubectl k
+alias kgCp="kg pods -n=kube-system | grep -v NAME"
+alias kgCpFail="kg pods -n=kube-system | grep -v 'Running\|NAME'"
+alias kgCpGood="kg pods -n=kube-system | grep 'Running'"
+alias checkCP="echo $(kg pods -n=kube-system | grep -c Running)/$(kg pods -n=kube-system | grep -vc NAME) && kgCpFail"
+"complete -F __start_kubectl k
 # IP Specific
 alias ipg="ip -f inet addr | grep inet"
 alias ipgN="ipg | grep eth0"

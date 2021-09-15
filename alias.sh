@@ -27,7 +27,7 @@ alias kgCp="kg pods -n=kube-system | grep -v NAME"
 alias kgCpFail="kg pods -n=kube-system | grep -v 'Running\|NAME'"
 alias kgCpGood="kg pods -n=kube-system | grep 'Running'"
 alias checkCP="echo $(kg pods -n=kube-system | grep -c Running)/$(kg pods -n=kube-system | grep -vc NAME) && kgCpFail"
-"complete -F __start_kubectl k
+complete -F __start_kubectl k
 # IP Specific
 alias ipg="ip -f inet addr | grep inet"
 alias ipgN="ipg | grep eth0"

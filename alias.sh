@@ -25,13 +25,18 @@ alias kx='k exec -it'
 alias kr="k replace -f"
 alias kc='k create'
 alias kcf="k create -f"
-alias kcd='k create $d'
-kcds() { k create deploy $@ $d | sed "s;Deployment;DaemonSet;" | grep -v "strategy\|status\|replicas"; }
+alias kcd='k create $d'
 alias ke="k explain"
+
+# Kubectl Authentication 
+kauth() { k auth can-i $1 $2 }
+kauth-sa() { kauth $1 $2 --as=system:serviceaccount:$3; } # $3 should be [NS]:[SA]
+
 
 # Kubectl Advanced
 alias ktmp="k run $RANDOM --image=busybox:1.28 --rm -it --restart=Never -- /bin/sh"
 alias kdns="k apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml"
+kcds() { k create deploy $@ $d | sed "s;Deployment;DaemonSet;" | grep -v "strategy\|status\|replicas"; }
 ker() { k explain $1 --recursive=true | grep '<' | sed 's/<.*//'; }
 
 # Kubeadm Related
@@ -57,5 +62,3 @@ alias kube-proxy-mode="kl ds/$(kg ds $N -l k8s-app=kube-proxy -ocustom-columns=:
 # Miscellaneous
 alias e="ETCDCTL_API=3 etcdctl"
 alias SWAPOFF="sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab"
-
-

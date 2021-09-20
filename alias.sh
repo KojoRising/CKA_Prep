@@ -26,7 +26,7 @@ alias kr="k replace -f"
 alias kc='k create'
 alias kcf="k create -f"
 alias kcd='k create $d'
-kcds() { k create deploy $@ $d| | sed "s;Deployment;Daemonset;" | grep -v "strategy\|status\|replicas"; }
+kcds() { k create deploy $@ $d | sed "s;Deployment;Daemonset;" | grep -v "strategy\|status\|replicas"; }
 alias ke="k explain"
 
 # Kubectl Advanced

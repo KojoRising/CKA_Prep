@@ -29,7 +29,7 @@ alias kcd='k create $d'
 alias ke="k explain"
 
 # Kubectl Authentication 
-kauth() { k auth can-i $1 $2 }
+kauth() { k auth can-i $1 $2; }
 kauth-sa() { kauth $1 $2 --as=system:serviceaccount:$3; } # $3 should be [NS]:[SA]
 
 

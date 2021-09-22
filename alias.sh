@@ -55,6 +55,9 @@ alias checkCP="echo $(kg pods -n=kube-system | grep -c Running)/$(kg pods -n=kub
 alias kmSearch="km completion bash | grep -e '[[:alpha:]]()' | tr '_' ' ' | tr -d '(' | tr -d ')' | grep "
 alias kdNodes="kd nodes | grep "Name:\|Taints:\|Unschedulable:"
 
+# alias kcMetrics="git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git && mv kubernetes-metrics-server ~/.k8s-metrics && kubectl create -f ~/.k8s-metrics
+alias kcMetrics="k apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+alias checkLogs="sort | uniq | grep -i "warning\|error\|failed\|unable"
 # IP Specific
 alias ipg="ip -f inet addr | grep inet"
 alias ipgN="ipg | grep eth0"

@@ -51,6 +51,7 @@ alias kgCpG="kg pods -n=kube-system | grep 'Running'"
 alias kmKubeProxy="kubeadm config print init-defaults --component-configs KubeProxyConfiguration"
 alias kmKubelet="kubeadm config print init-defaults --component-configs KubeletConfiguration"
 alias checkCP="echo $(kg pods -n=kube-system | grep -c Running)/$(kg pods -n=kube-system | grep -vc NAME) && kgCpF"
+alias kmSearch="km completion bash | grep -e '[[:alpha:]]()' | tr '_' ' ' | tr -d '(' | tr -d ')' | grep "
 alias kdNodes="kd nodes | grep "Name:\|Taints:\|Unschedulable:"
 
 # IP Specific

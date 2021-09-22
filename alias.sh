@@ -1,6 +1,7 @@
 # Grep & Sed
 sedGrep() { grep $1 | sed "s;$1;;" | xargs; }
 mgrep() { grep -E $(echo "$@" | tr -s '[:blank:]' '|' | tr -s ',' '|'); }
+alias findKubelet="find /etc -name *kubelet* && find /var -name *kubelet*"
 
 # Kubectl Basic
 COUNT="grep -vc NAME"

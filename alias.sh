@@ -29,11 +29,6 @@ alias kcf="k create -f"
 alias kcd='k create $d'
 alias ke="k explain"
 
-# Kubectl Authentication 
-kauth() { k auth can-i $1 $2; }
-kauth-sa() { kauth $1 $2 --as=system:serviceaccount:$3; } # $3 should be [NS]:[SA]
-
-
 # Kubectl Advanced
 alias ktmp="k run $RANDOM --image=busybox:1.28 --rm -it --restart=Never -- /bin/sh"
 alias kdns="k apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml"
@@ -55,7 +50,6 @@ alias checkCP="echo $(kg pods -n=kube-system | grep -c Running)/$(kg pods -n=kub
 alias kmSearch="km completion bash | grep -e '[[:alpha:]]()' | tr '_' ' ' | tr -d '(' | tr -d ')' | grep "
 alias kdNodes="kd nodes | grep 'Name:\|Taints:\|Unschedulable:'"
 
-# alias kcMetrics="git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git && mv kubernetes-metrics-server ~/.k8s-metrics && kubectl create -f ~/.k8s-metrics"
 alias kcMetrics="k apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
 alias checkLogs="sort | uniq | grep -i 'warning\|error\|failed\|unable'"
 # IP Specific
@@ -68,3 +62,13 @@ alias kube-proxy-mode="kl ds/$(kg ds $N -l k8s-app=kube-proxy -ocustom-columns=:
 # Miscellaneous
 alias e="ETCDCTL_API=3 etcdctl"
 alias SWAPOFF="sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab"
+
+# Kubectl Authentication 
+kauth() { k auth can-i $1 $2; }
+kauth-sa() { kauth $1 $2 --as=system:serviceaccount:$3; } # $3 should be [NS]:[SA]
+
+
+# REFERENCES
+# alias kcMetrics="git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git && mv kubernetes-metrics-server ~/.k8s-metrics && kubectl create -f ~/.k8s-metrics"
+# alias ipCheckForward="ip tables -L -t nat | grep [SERVICE]
+

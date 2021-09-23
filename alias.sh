@@ -6,6 +6,7 @@ alias findKubelet="find /etc -name *kubelet* && find /var -name *kubelet*"
 # Kubectl Basic
 COUNT="grep -vc NAME"
 FIND="grep --color=always -e "^" -e"
+LABEL="--show-labels"
 N="-n=kube-system"
 D="--dry-run=client -oyaml"
 d="--dry-run=client -oyaml"

@@ -15,6 +15,7 @@ alias k=kubectl
 complete -F __start_kubectl k
 alias kg="k get"
 alias kgp="kg pods"
+alias kgpNodes="kd Pods | grep -i 'Name:\|Node:' | grep -Ev '[[:space:]].*Name:'"
 alias kgpW="kg pods -owide"
 alias kgd="kg deploy"
 alias kgs="kg svc"

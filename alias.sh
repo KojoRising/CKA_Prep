@@ -33,6 +33,7 @@ alias kcd='k create $d'
 alias ke="k explain"
 
 # Kubectl Advanced
+alias knginx="k run nginx --image=nginx"
 alias kbusy="k run busy --image=busybox:1.28 --restart=Never -- /bin/sh -c 'sleep 4d'" 
 alias ktmp="k run $RANDOM --image=busybox:1.28 --rm -it --restart=Never -- /bin/sh"
 alias kdns="k apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml"

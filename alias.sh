@@ -3,7 +3,7 @@ sedGrep() { grep $1 | sed "s;$1;;" | xargs; }
 mgrep() { grep -E $(echo "$@" | tr -s '[:blank:]' '|' | tr -s ',' '|'); }
 alias ngrep="grep -e NAME -e"
 alias findKubelet="find /etc -name *kubelet* && find /var -name *kubelet*"
-alias grepKubelet="grep -Rl kubelet /var/lib /opt /etc"
+alias grepKubelet="grep -rl kubelet /var/lib /opt /etc"
 
 # Kubectl Basic
 COUNT="grep -vc NAME"

@@ -33,6 +33,8 @@ alias kx='k exec -it'
 alias kr="k run"
 alias krf="k replace -f"
 alias kc='k create'
+
+kcr() { curl $1 | tee $(echo $1 | sed "s;.*/;;") | kubectl create -f - ; } # Remote Connections
 alias kcf="k create -f"
 alias kcd='k create $d'
 alias ke="k explain"

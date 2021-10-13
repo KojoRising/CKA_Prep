@@ -33,6 +33,8 @@ alias kx='k exec -it'
 alias kr="k run"
 alias krf="k replace -f"
 alias kc='k create'
+alias k_version="kubectl version --client --short"
+alias km_version="kubeadm version -o short"
 
 kcr() { curl $1 | tee $(echo $1 | sed "s;.*/;;") | kubectl create -f - ; } # Remote Connections
 alias kcf="k create -f"

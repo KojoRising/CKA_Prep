@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bookstore
+    role: api
+  name: apiserver
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: bookstore
+    role: api
+status:
+  loadBalancer: {}
+---
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bookstore
+    role: api
+  name: apiserver
+spec:
+  containers:
+    - image: nginx
+      name: apiserver
+      ports:
+        - containerPort: 80
+      resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+---
+---
+# Failing Pod
+# kubectl run $RANDOM --rm -it --image=alpine -- wget -qO- --timeout=2 http://apiserver
+
+# Successful Pod
+# kubectl run $RANDOM --rm -it --image=alpine -l=app=bookstore,role=frontend -- wget -qO- --timeout=2 http://apiserver

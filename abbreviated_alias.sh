@@ -1,9 +1,12 @@
 COUNT="grep -vc NAME"
 N="-n=kube-system"
 d="--dry-run=client -oyaml"
+D="--dry-run=client -oyaml"
+DRY="--dry-run=client -oyaml"
 alias k=kubectl
 complete -F __start_kubectl k
 alias kg="k get"
+alias ka="k apply -f"
 alias kd="k describe"
 alias kdel="k del"
 alias kdelf="k delete --force pod" 
@@ -24,4 +27,5 @@ kcds() { k create deploy $@ $d | sed "s;Deployment;DaemonSet;" | grep -v "strate
 ker() { k explain $1 --recursive=true | grep '<' | sed 's/<.*//'; }
 # Miscellaneous
 alias e="ETCDCTL_API=3 etcdctl"
+alias es="ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/apiserver-etcd-client.crt --key=/etc/kubernetes/pki/apiserver-etcd-client.key --cacert=/etc/kubernetes/pki/etcd/ca.crt"
 alias SWAPOFF="sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fst"

@@ -4,6 +4,8 @@ N="-n=kube-system"
 d="--dry-run=client -oyaml"
 D="--dry-run=client -oyaml"
 DRY="--dry-run=client -oyaml"
+CC="-ocustom-columns"
+JP="-ojsonpath"
 alias kst="kustomize"
 alias k=kubectl
 complete -F __start_kubectl k

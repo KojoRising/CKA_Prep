@@ -1,13 +1,16 @@
+# curl https://raw.githubusercontent.com/KojoRising/CKA_Prep/main/abbreviated_alias.sh > alias.sh && source alias.sh
 COUNT="grep -vc NAME"
 N="-n=kube-system"
 d="--dry-run=client -oyaml"
 D="--dry-run=client -oyaml"
 DRY="--dry-run=client -oyaml"
+alias kst="kustomize"
 alias k=kubectl
 complete -F __start_kubectl k
 alias kg="k get"
 alias ka="k apply -f"
 alias kd="k describe"
+alias kdl="k delete"
 alias kdel="k del"
 alias kdelf="k delete --force pod" 
 alias kx='k exec -it'

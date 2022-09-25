@@ -8,6 +8,9 @@ CC="-ocustom-columns"
 JP="-ojsonpath"
 alias kst="kustomize"
 alias k=kubectl
+alias d=docker
+alias g=git
+alias p=podman
 complete -F __start_kubectl k
 alias kg="k get"
 alias ka="k apply -f"

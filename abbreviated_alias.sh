@@ -6,6 +6,7 @@ D="--dry-run=client -oyaml"
 DRY="--dry-run=client -oyaml"
 CC="-ocustom-columns"
 JP="-ojsonpath"
+SRT="--sort-by={..creationTimestamp}"
 alias kst=kustomize
 alias k=kubectl
 alias d=docker
